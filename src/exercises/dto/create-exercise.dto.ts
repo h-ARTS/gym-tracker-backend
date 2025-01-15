@@ -1,6 +1,6 @@
 import { Exercise } from '../interface/exercises.interface';
 
-export class CreateExercisseDto implements Exercise {
+export class CreateExerciseDto implements Exercise {
   id: string;
 
   description: string;
