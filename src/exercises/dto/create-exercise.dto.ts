@@ -1,7 +1,7 @@
 import { Exercise } from '../interface/exercises.interface';
 
 export class CreateExerciseDto implements Exercise {
-  id: string;
+  id?: string;
 
   description: string;
 }

@@ -13,6 +13,7 @@ import { CreateExerciseDto } from './dto/create-exercise.dto';
 import { Observable } from 'rxjs';
 import { Exercise, ExerciseAPI } from './interface/exercises.interface';
 import { ParamQueryId, QueryApi } from 'src/utils/interfaces/query.interface';
+import { UpdateExerciseDto } from './dto/update-exercise.dto';
 
 @Controller('exercises')
 export class ExercisesController {
@@ -37,7 +38,7 @@ export class ExercisesController {
   @Put(':id')
   update(
     @Param() params: ParamQueryId,
-    @Body() newExercise: CreateExerciseDto,
+    @Body() newExercise: UpdateExerciseDto,
   ): Observable<Exercise> {
     return this.exercisesService.update(params['id'], newExercise);
   }

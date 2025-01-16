@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { exercises } from '../db/exercises.data';
 import { Exercise, ExerciseAPI } from '../interface/exercises.interface';
 import { Observable, of } from 'rxjs';
-import { getCollection, getItem } from 'src/utils/utils';
+import { getCollection, getItem } from '../../utils/utils';
 import { randomUUID } from 'crypto';
 
 @Injectable()
