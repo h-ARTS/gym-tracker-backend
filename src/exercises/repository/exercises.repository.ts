@@ -3,7 +3,7 @@ import { exercises } from '../db/exercises.data';
 import { Exercise, ExerciseAPI } from '../interface/exercises.interface';
 import { Observable, of } from 'rxjs';
 import { getCollection, getItem } from 'src/utils/utils';
-import { v4 as randomUUID } from 'crypto';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class ExercisesRepository {
