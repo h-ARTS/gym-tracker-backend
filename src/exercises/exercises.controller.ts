@@ -1,34 +1,49 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+  Put,
+} from '@nestjs/common';
 import { ExercisesService } from './exercises.service';
 import { CreateExerciseDto } from './dto/create-exercise.dto';
-import { UpdateExerciseDto } from './dto/update-exercise.dto';
+import { Observable } from 'rxjs';
+import { Exercise, ExerciseAPI } from './interface/exercises.interface';
+import { ParamQueryId, QueryApi } from 'src/utils/interfaces/query.interface';
 
 @Controller('exercises')
 export class ExercisesController {
   constructor(private readonly exercisesService: ExercisesService) {}
 
   @Post()
-  create(@Body() createExerciseDto: CreateExerciseDto) {
-    return this.exercisesService.create(createExerciseDto);
+  create(@Body() newExercise: CreateExerciseDto): Observable<Exercise> {
+    return this.exercisesService.insert(newExercise);
   }
 
   @Get()
-  findAll() {
-    return this.exercisesService.findAll();
+  findAll(@Query() query: QueryApi): Observable<ExerciseAPI> {
+    const { search, filter, page, pageSize } = query;
+    return this.exercisesService.findAll(search || filter, page, pageSize);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.exercisesService.findOne(+id);
+  findOne(@Param() params: ParamQueryId): Observable<Exercise> {
+    return this.exercisesService.findOne(params['id']);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateExerciseDto: UpdateExerciseDto) {
-    return this.exercisesService.update(+id, updateExerciseDto);
+  @Put(':id')
+  update(
+    @Param() params: ParamQueryId,
+    @Body() newExercise: CreateExerciseDto,
+  ): Observable<Exercise> {
+    return this.exercisesService.update(params['id'], newExercise);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.exercisesService.remove(+id);
+  delete(@Param() params: ParamQueryId) {
+    return this.exercisesService.delete(params['id']);
   }
 }
